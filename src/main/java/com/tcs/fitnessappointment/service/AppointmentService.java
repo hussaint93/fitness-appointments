@@ -1,14 +1,18 @@
 package com.tcs.fitnessappointment.service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.tcs.fitnessappointment.Appointment;
+import com.tcs.fitnessappointment.User;
 import com.tcs.fitnessappointment.exception.UserNotFoundException;
 import com.tcs.fitnessappointment.repository.IAppointmentRepository;
+import com.tcs.fitnessappointment.repository.IUserRepository;
 
 
 
@@ -17,8 +21,18 @@ public class AppointmentService implements IAppointmentService{
 
 	@Autowired
 	IAppointmentRepository appointmentRepository;
+	
+	@Autowired
+	IUserRepository userRepo;
 	@Override
-	public void save(Appointment app) {
+	public void save(Appointment app,Integer id) {
+		Optional<User> user = userRepo.findById(id);
+		if(!user.isPresent()) {
+			throw new UserNotFoundException("appointment does not exist");
+		}
+		Set<Appointment> appointmentForUser = new HashSet<>();
+		appointmentForUser.add(app);
+		user.get().setAppointments(appointmentForUser);
 		appointmentRepository.save(app);
 		System.out.println("saved");
 	}
