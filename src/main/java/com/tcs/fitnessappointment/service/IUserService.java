@@ -10,4 +10,8 @@ public interface IUserService {
 
 	Iterable<User> getAll();
 
+	void deleteUser(Integer id);
+
+	User updateUser(Integer id, User user);
+
 }

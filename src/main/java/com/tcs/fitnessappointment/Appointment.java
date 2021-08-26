@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,8 +59,8 @@ public class Appointment {
 	
 	private int amount= packageSelected*noOfWeeks;
 	
-	@ManyToOne
-    private User user;
+	private int u_id;
+	
 	
 	@Override
 	public String toString() {

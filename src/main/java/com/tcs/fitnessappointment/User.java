@@ -20,6 +20,8 @@ import lombok.Setter;
 @Setter
 @Entity(name="User")
 public class User {
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -35,6 +37,12 @@ public class User {
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID")
+	@JoinColumn(name = "USER_ID")
 	private Set<Appointment> appointments;
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", appointments="
+				+ appointments + "]";
+	}
 }

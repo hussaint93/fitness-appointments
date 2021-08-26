@@ -30,6 +30,7 @@ public class AppointmentService implements IAppointmentService{
 		if(!user.isPresent()) {
 			throw new UserNotFoundException("appointment does not exist");
 		}
+		app.setU_id(id);
 		Set<Appointment> appointmentForUser = new HashSet<>();
 		appointmentForUser.add(app);
 		user.get().setAppointments(appointmentForUser);
