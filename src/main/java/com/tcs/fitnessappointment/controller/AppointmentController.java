@@ -53,10 +53,10 @@ public class AppointmentController {
 		return appointmentService.getAll();
 	}
 	
-	@PostMapping("/place")
-	public ResponseEntity<Appointment> saveAppointment( @Valid @RequestBody Appointment app) {
+	@PostMapping("/place/{id}")
+	public ResponseEntity<Appointment> saveAppointment( @PathVariable Integer id ,@Valid @RequestBody Appointment app) {
 		app.setAmount(app.getNoOfWeeks()*app.getPackageSelected());
-		appointmentService.save(app);
+		appointmentService.save(app,id);
 		return new ResponseEntity<Appointment>(app,HttpStatus.OK);
 	}
 	
@@ -65,9 +65,9 @@ public class AppointmentController {
 		appointmentService.deleteUser(id);
 	}
 	
-	@PutMapping("/place/{id}")
-	public void updateAppointment(@PathVariable Integer id,@RequestBody Appointment app) {
-		appointmentService.updateAppointment(id,app);
+	@PutMapping("/place/{appointment_id}")
+	public void updateAppointment(@PathVariable Integer appointment_id,@RequestBody Appointment app) {
+		appointmentService.updateAppointment(appointment_id,app);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

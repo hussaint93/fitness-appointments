@@ -42,38 +42,26 @@ public class AppointmentService implements IAppointmentService{
 	}
 	@Override
 	public void updateAppointment(Integer id, Appointment app) {
-		Optional<Appointment> appoint=appointmentRepository.findById(id);
-		Appointment app1= appoint.get();
+		Optional<Appointment> appointmentFromDB=appointmentRepository.findById(id);
+		Appointment appointment1= appointmentFromDB.get();
 		
 		if(StringUtils.hasText(app.getName())) {
-			app1.setName(app.getName());
+			appointment1.setName(app.getName());
 		}
-			
-		
-		if(StringUtils.hasText(app.getEmail()))
-			app1.setEmail(app.getEmail());
-
-		if(StringUtils.hasText(app.getAddress()))
-			app1.setAddress(app.getAddress());
-		
-		if(StringUtils.hasText(app.getTraineePreference()))
-			app1.setTraineePreference(app.getTraineePreference());
-		
-		if(Boolean.valueOf(app.isPhysiotherapist()))
-			app1.setPhysiotherapist(app.isPhysiotherapist());
-		
-		if((Integer)app.getNoOfWeeks()!=null)
-		{	
-			app1.setNoOfWeeks(app.getNoOfWeeks());
-			app1.setAmount(app1.getNoOfWeeks()*app1.getPackageSelected());
+		if(StringUtils.hasText(app.getEmail())) {
+			appointment1.setEmail(app.getEmail());
 		}
-		if((Integer)app.getPackageSelected()!=null)
-		{	
-			app.setPackageSelected(app.getPackageSelected());
-			app1.setAmount(app1.getNoOfWeeks()*app1.getPackageSelected());
-		}	
+		if(StringUtils.hasText(app.getAddress())) {
+			appointment1.setAddress(app.getAddress());
+		}
+		if(StringUtils.hasText(app.getTraineePreference())) {
+			appointment1.setAddress(app.getAddress());
+		}
+		if((Boolean)app.isPhysiotherapist()!=null) {
+			appointment1.setPhysiotherapist(app.isPhysiotherapist());
+		}
 		
-		appointmentRepository.save(app1);
+		appointmentRepository.save(appointment1);
 	}
 
 }
